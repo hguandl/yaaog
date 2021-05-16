@@ -1,0 +1,34 @@
+.logo {
+  color: white;
+  font-size: 18px;
+  line-height: 30px;
+}
+
+.mySwitch {
+  :global {
+    @import '~antd/lib/style/themes/default.less';
+    .ant-switch {
+      background-color: @green-4;
+    }
+    .ant-switch-checked {
+      background-color: @orange-4;
+    }
+    .ant-switch-inner {
+      color: @text-color;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      @import '~antd/lib/style/themes/dark.less';
+      .ant-switch {
+        background-color: @green-4;
+      }
+      .ant-switch-checked {
+        background-color: @orange-4;
+      }
+      .ant-switch-inner {
+        color: @text-color;
+      }
+    }
+  }
+}
+
