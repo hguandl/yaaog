@@ -1,6 +1,6 @@
 .viewPort {
-  @media screen and (max-width: 768px) {
-    width: calc(100vw - 230px)
+  @media screen and (max-width: 900px) {
+    width: calc(100vw - 260px)
   }
   width: auto;
   overflow-x: scroll;
@@ -10,8 +10,20 @@
   display: none; /* Chrome Safari */
 }
 
-.t2ViewPort {
-  @media screen and (max-width: 768px) {
+.t2Display {
+  @media screen and (max-width: 1000px) {
     display: none;
   }
+}
+
+.t2ScollView {
+  @media screen and (max-width: 1550px) {
+    width: calc(100vw - 1000px);
+  }
+  width: auto;
+  overflow-x: scroll;
+}
+
+.t2ScollView::-webkit-scrollbar {
+  display: none;
 }

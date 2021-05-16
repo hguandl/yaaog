@@ -48,7 +48,7 @@ export default function IndexPage({ currency, setLastModified }: IHeaderData) {
           <div className={styles.t2ViewPort}>
             <Space size="large">
               <ItemCell item={v} currency={currency} className={styles.t2ViewPort} />
-              <div className={`${styles.viewPort} ${styles.t2ViewPort}`}>
+              <div className={`${styles.viewPort} ${styles.t2Display}`}>
                 <Space size="large" style={{ minWidth: 160 * (v?.stages.length || 0) }}>
                   {
                     v?.stages.map(s =>

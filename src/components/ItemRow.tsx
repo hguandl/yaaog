@@ -24,9 +24,9 @@ const ItemRow: FC<{ entires: IAogEntry[] | undefined, currency: string }> = ({ e
             }
           </Space>
         </div>
-        {t2Item && <ItemCell item={t2Item} currency={currency} className={styles.t2ViewPort} />}
+        {t2Item && <ItemCell item={t2Item} currency={currency} className={styles.t2Display} />}
         {t2Item &&
-          <div className={(styles.viewPort, styles.t2ViewPort)}>
+          <div className={`${styles.t2ScollView} ${styles.t2Display}`}>
             <Space size="large" style={{ minWidth: 160 * (t2Item?.stages.length || 0) }}>
               {
                 t2Item?.stages.map(s =>
