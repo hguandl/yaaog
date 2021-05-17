@@ -1,4 +1,4 @@
-import { IPenguinStage } from '@/models/useStage';
+import { IPenguinStage } from '@/models/typeRefs';
 
 export default class StageService {
   readonly stages: IPenguinStage[];

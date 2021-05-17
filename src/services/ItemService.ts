@@ -1,4 +1,4 @@
-import { IPenguinItem } from '@/models/useItem';
+import { IPenguinItem } from '@/models/typeRefs';
 
 export default class ItemService {
   readonly items: IPenguinItem[];

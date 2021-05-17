@@ -1,10 +1,7 @@
 import ItemService from "@/services/ItemService";
 import MatrixService from "@/services/MatrixService";
 import StageService from "@/services/StageService";
-import { useRequest, useModel } from "umi";
-import { IPenguinItem } from "./useItem";
-import { IPenguin } from "./usePenguin";
-import { IPenguinStage } from "./useStage";
+import { useRequest } from "umi";
 
 export default function useServices(): { itemService: ItemService, stageService: StageService, matrixService: MatrixService, loading: boolean } {
   const penguinAPI = "https://penguin-stats.io/PenguinStats/api/v2/result/matrix";

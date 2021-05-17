@@ -1,5 +1,4 @@
-import { IPenguin } from '@/models/usePenguin';
-import { useModel } from 'umi';
+import { IPenguin } from '@/models/typeRefs';
 import ItemService from './ItemService';
 import StageService from './StageService';
 
@@ -31,6 +30,14 @@ export default class MatrixService {
   }
 
   private calculate() {
+    this.matrix.forEach((p, idx, arr) => {
+      arr[idx].item = this.itemService.getItemByItemId(p.itemId);
+      arr[idx].stage = this.stageService.getStageByStageId(p.stageId);
+      arr[idx].probability = p.quantity / p.times;
+      arr[idx].expectation = (p.stage?.apCost || 0) / p.probability;
+      arr[idx].request = (p.item?.price || 0) * p.probability;
+    })
+
     const validStages = new Set();
     this.matrix.forEach((p) => validStages.add(p.stage));
 
