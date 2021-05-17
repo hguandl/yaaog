@@ -44,19 +44,19 @@ export default function IndexPage({ currency, setLastModified }: IHeaderData) {
     <div>
       {
         groupOrder.map(g => itemGroups.get(g)).map(v =>
-          <ItemRow entires={v} currency={currency} />
+          <ItemRow entires={v} currency={currency} key={v?.[0]?.group} />
         )
       }
       {
         data.matrix.filter(e => e.tier === 2).map(v =>
-          <div className={styles.t2Display}>
+          <div className={styles.t2Display} key={v.group}>
             <Space size="large">
               <ItemCell item={v} currency={currency} />
               <div className={styles.viewPort}>
                 <Space size="large" style={{ minWidth: 160 * (v?.stages.length || 0) }}>
                   {
                     v?.stages.map(s =>
-                      <StageCell stage={s} />
+                      <StageCell stage={s} key={s.stage} />
                     )
                   }
                 </Space>

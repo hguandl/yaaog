@@ -19,7 +19,7 @@ const ItemRow: FC<{ entires: IAogEntry[] | undefined, currency: string }> = ({ e
           <Space size="large" style={{ minWidth: 160 * (t3Item?.stages.length || 0) }}>
             {
               t3Item?.stages.map(s =>
-                <StageCell stage={s} />
+                <StageCell stage={s} key={s.stage} />
               )
             }
           </Space>
@@ -30,7 +30,7 @@ const ItemRow: FC<{ entires: IAogEntry[] | undefined, currency: string }> = ({ e
             <Space size="large" style={{ minWidth: 160 * (t2Item?.stages.length || 0) }}>
               {
                 t2Item?.stages.map(s =>
-                  <StageCell stage={s} />
+                  <StageCell stage={s} key={s.stage} />
                 )
               }
             </Space>
