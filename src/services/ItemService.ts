@@ -1,19 +1,17 @@
-import { IPenguinItem } from "@/models/useItem";
+import { IPenguinItem } from '@/models/useItem';
 
 export default class ItemService {
   readonly items: IPenguinItem[];
   readonly itemGroups: Set<number>;
 
   constructor(itemList: IPenguinItem[]) {
-    this.items = itemList;
+    this.items = itemList || [];
     this.itemGroups = new Set<number>();
 
-    if (itemList === undefined) {
-      return;
-    }
-
-    itemList.forEach(i => {
-      this.itemGroups.add(i.group);
+    this.items.forEach((i) => {
+      if (i && i.group > 0) {
+        this.itemGroups.add(i.group);
+      }
     });
   }
 
@@ -22,8 +20,7 @@ export default class ItemService {
   }
 
   public getItemByItemId(itemId: string) {
-    return this.items
-      .find(item => item.itemId === itemId);
+    return this.items.find((item) => item.itemId === itemId);
   }
 
   public hasItemId(itemId: string) {
@@ -31,8 +28,7 @@ export default class ItemService {
   }
 
   public getItemByName(name: string) {
-    return this.items
-      .find(item => item.name === name);
+    return this.items.find((item) => item.name === name);
   }
 
   public getItemGroups() {
@@ -40,17 +36,16 @@ export default class ItemService {
   }
 
   public getItemsByGroup(group: number) {
-    return this.items
-      .filter(item => item.group === group);
+    return this.items.filter((item) => item.group === group);
   }
 
   public getItemsByTier(tier: number) {
-    return this.items
-      .filter(item => item.tier === tier);
+    return this.items.filter((item) => item.tier === tier);
   }
 
   public getItemByGroupAndTier(group: number, tier: number) {
-    return this.items
-      .find(item => item.group === group && item.tier === tier);
+    return this.items.find(
+      (item) => item.group === group && item.tier === tier,
+    );
   }
 }
