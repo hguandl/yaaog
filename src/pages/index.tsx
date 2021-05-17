@@ -5,8 +5,6 @@ import { IAogEntry } from '@/models/useMatrix';
 import ItemRow from '@/components/ItemRow';
 import ItemCell from "@/components/ItemCell";
 import StageCell from "@/components/StageCell";
-import { IPenguinItem } from '@/models/useItem';
-import { IPenguinStage } from '@/models/useStage';
 
 interface IHeaderData {
   currency: string

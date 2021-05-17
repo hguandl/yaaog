@@ -1,4 +1,5 @@
-import { useRequest, RequestConfig } from "umi";
+import MatrixService from "@/services/MatrixService";
+import { useRequest } from "umi";
 import { IPenguinItem } from "./useItem";
 import { IPenguinStage } from "./useStage";
 
