@@ -1,32 +1,35 @@
 import styles from './index.less';
-import { Skeleton, Space, Divider } from "antd";
+import { Skeleton, Space, Divider } from 'antd';
 import { useModel } from 'umi';
 import { IAogEntry } from '@/models/useMatrix';
 import ItemRow from '@/components/ItemRow';
-import ItemCell from "@/components/ItemCell";
-import StageCell from "@/components/StageCell";
+import ItemCell from '@/components/ItemCell';
+import StageCell from '@/components/StageCell';
+import { useEffect } from 'react';
 
 interface IHeaderData {
-  currency: string
-  setLastModified: React.Dispatch<React.SetStateAction<number>>
+  currency: string;
+  setLastModified: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function IndexPage({ currency, setLastModified }: IHeaderData) {
-  const { data, loading } = useModel("useMatrix");
+  const { data, loading } = useModel('useMatrix');
 
-  const { data: result, loading: loading1 } = useModel("useAog");
+  const { data: result, loading: loading1 } = useModel('useAog');
+
+  useEffect(() => {
+    setLastModified(data?.lastModified);
+  }, [data?.lastModified]);
 
   if (loading || loading1) {
-    return <Skeleton active />
+    return <Skeleton active />;
   }
 
   console.log(result);
 
-  setLastModified(data.lastModified);
-
   const itemGroups = new Map<number, IAogEntry[]>();
 
-  data.matrix.forEach(e => {
+  data.matrix.forEach((e) => {
     if (e.group === 0) {
       return;
     }
@@ -36,36 +39,35 @@ export default function IndexPage({ currency, setLastModified }: IHeaderData) {
     itemGroups.get(e.group)?.push(e);
   });
 
-  const groupOrder = [
-    10, 8, 9, 1, 5, 4, 6, 7, 3, 2, 101, 102, 103
-  ];
+  const groupOrder = [10, 8, 9, 1, 5, 4, 6, 7, 3, 2, 101, 102, 103];
 
   return (
     <div>
-      {
-        groupOrder.map(g => itemGroups.get(g)).map(v =>
+      {groupOrder
+        .map((g) => itemGroups.get(g))
+        .map((v) => (
           <ItemRow entires={v} currency={currency} key={v?.[0]?.group} />
-        )
-      }
-      {
-        data.matrix.filter(e => e.tier === 2).map(v =>
+        ))}
+      {data.matrix
+        .filter((e) => e.tier === 2)
+        .map((v) => (
           <div className={styles.t2Display} key={v.group}>
             <Space size="large">
               <ItemCell item={v} currency={currency} />
               <div className={styles.viewPort}>
-                <Space size="large" style={{ minWidth: 160 * (v?.stages.length || 0) }}>
-                  {
-                    v?.stages.map(s =>
-                      <StageCell stage={s} key={s.stage} />
-                    )
-                  }
+                <Space
+                  size="large"
+                  style={{ minWidth: 160 * (v?.stages.length || 0) }}
+                >
+                  {v?.stages.map((s) => (
+                    <StageCell stage={s} key={s.stage} />
+                  ))}
                 </Space>
               </div>
             </Space>
             <Divider />
           </div>
-        )
-      }
+        ))}
     </div>
   );
 }
