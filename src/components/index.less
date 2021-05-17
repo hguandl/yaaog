@@ -27,3 +27,13 @@
 .t2ScollView::-webkit-scrollbar {
   display: none;
 }
+
+.touchExpandElement::after {
+  // width: calc(100vw - 260px);
+  overflow-x: scroll;
+  content: '';
+  width: 160px;
+  height: 80px;
+  position: absolute;
+  background-color: aqua;
+}

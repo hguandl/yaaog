@@ -29,12 +29,19 @@ const BasicLayout: FC<IRouteComponentProps> = ({ children }) => {
 
   return (
     <Layout>
-      <Header style={{ position: "fixed", width: "100%" }}>
+      <Header style={{ position: "fixed", width: "100%", minWidth: 320 }}>
         <Row gutter={16}>
           <Col>
             <Link to='/' className={styles.logo}>{intl.formatMessage({ id: 'LOGO_TEXT' })}</Link>
           </Col>
-          <Col className={styles.mySwitch}>
+          <Col className={`${styles.mySwitch} ${styles.smallSwitchDisplay}`}>
+            <Switch
+              size="small"
+              onChange={switchCurrency}
+              checkedChildren="橙票"
+              unCheckedChildren="绿票" />
+          </Col>
+          <Col className={`${styles.mySwitch} ${styles.switchDisplay}`}>
             <Switch
               onChange={switchCurrency}
               checkedChildren="橙票"

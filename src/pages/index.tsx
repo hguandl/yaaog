@@ -14,37 +14,15 @@ interface IHeaderData {
 }
 
 export default function IndexPage({ currency, setLastModified }: IHeaderData) {
-  const { data: penguin, loading: loading1 } = useModel("usePenguin");
-
-  const { data: items, loading: loading2 } = useModel("useItem");
-  const { data: stages, loading: loading3 } = useModel("useStage");
-
   const { data, loading } = useModel("useMatrix");
 
-  if (loading || loading1 || loading2 || loading3) {
+  const { data: result, loading: loading1 } = useModel("useAog");
+
+  if (loading || loading1) {
     return <Skeleton active />
   }
 
-  const itemMap = new Map<string, IPenguinItem>();
-  items.forEach(i => itemMap.set(i.itemId, i));
-
-  const stageMap = new Map<string, IPenguinStage>();
-  stages.forEach(s => stageMap.set(s.stageId, s));
-
-  const validPages = penguin
-    .filter(p => p.times > 300)
-    .filter(p => itemMap.has(p.itemId))
-    .filter(p => stageMap.has(p.stageId));
-
-  validPages.forEach((p, idx, arr) => {
-    arr[idx].item = itemMap.get(p.itemId);
-    arr[idx].stage = stageMap.get(p.stageId);
-    arr[idx].probability = p.quantity / p.times;
-    arr[idx].expectation = (p.stage?.apCost || 0) / p.probability;
-    arr[idx].request = (p.item?.price || 0) * p.probability;
-  })
-
-  console.log(validPages);
+  console.log(result);
 
   setLastModified(data.lastModified);
 

@@ -1,3 +1,4 @@
+import ItemService from "@/services/ItemService";
 import { useRequest } from "umi";
 
 export interface IPenguinItem {
@@ -10,11 +11,11 @@ export interface IPenguinItem {
   formula: object
 }
 
-export default function useStage(): { data: IPenguinItem[], loading: boolean } {
+export default function useStage(): { itemService: ItemService, loading: boolean } {
   const { data, loading } = useRequest("/dat/items.json");
 
   return {
-    data: data,
+    itemService: new ItemService(data),
     loading: loading,
   };
 }

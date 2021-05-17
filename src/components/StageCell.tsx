@@ -1,3 +1,4 @@
+import styles from './index.less';
 import { FC } from 'react';
 import { Tooltip, Space, } from "antd";
 import { magenta, orange, blue } from "@ant-design/colors";

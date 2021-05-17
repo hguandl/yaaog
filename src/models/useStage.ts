@@ -1,5 +1,5 @@
+import StageService from "@/services/StageService";
 import { useRequest } from "umi";
-import { IPenguinItem } from "./useItem";
 
 export interface IPenguinStage {
   stageId: string,
@@ -8,11 +8,11 @@ export interface IPenguinStage {
   apCost: number
 }
 
-export default function useStage(): { data: IPenguinStage[], loading: boolean } {
+export default function useStage(): { stageService: StageService, loading: boolean } {
   const { data, loading } = useRequest("/dat/stages.json");
 
   return {
-    data: data,
+    stageService: new StageService(data),
     loading: loading,
   };
 }

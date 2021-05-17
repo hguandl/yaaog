@@ -16,11 +16,17 @@ export interface IPenguin {
 
   request: number,
   probability: number,
-  expectation: number
+  expectation: number,
+
+  reqSum: number,
+  utilizationRate: number
 }
 
 export default function usePenguin(): { data: IPenguin[], loading: boolean } {
-  const { data, loading } = useRequest("https://penguin-stats.io/PenguinStats/api/v2/result/matrix", {formatResult: res => res.matrix});
+  const penguinAPI = "https://penguin-stats.io/PenguinStats/api/v2/result/matrix";
+  const localAPI = "/api/penguin.json";
+
+  const { data, loading } = useRequest(localAPI, { formatResult: res => res.matrix });
 
   return {
     data: data,
