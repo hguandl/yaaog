@@ -1,10 +1,13 @@
 import { IPenguinStage } from '@/models/typeRefs';
 
 export default class StageService {
-  readonly stages: IPenguinStage[];
+  private readonly stages: IPenguinStage[];
+
+  readonly ready: boolean;
 
   constructor(stageList: IPenguinStage[]) {
     this.stages = stageList || [];
+    this.ready = stageList && stageList.length > 0;
   }
 
   public getStageByStageId(stageId: string) {

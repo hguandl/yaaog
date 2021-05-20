@@ -3,10 +3,12 @@ import ItemService from './ItemService';
 import StageService from './StageService';
 
 export default class MatrixService {
-  readonly matrix: IPenguinEntry[];
+  private readonly matrix: IPenguinEntry[];
 
   private readonly itemService: ItemService;
   private readonly stageService: StageService;
+
+  readonly ready: boolean;
 
   constructor(
     origMatrix: IPenguinEntry[],
@@ -16,8 +18,9 @@ export default class MatrixService {
     this.itemService = itemService;
     this.stageService = stageService;
 
-    if (origMatrix === undefined) {
+    if (origMatrix === undefined || !itemService.ready || !stageService.ready) {
       this.matrix = [];
+      this.ready = false;
       return;
     }
 
@@ -27,6 +30,7 @@ export default class MatrixService {
       .filter((p) => stageService.hasStageId(p.stageId));
 
     this.calculate();
+    this.ready = true;
   }
 
   private calculate() {
@@ -55,6 +59,7 @@ export default class MatrixService {
         .forEach((p, idx, arr) => {
           arr[idx].reqSum = reqSum;
           arr[idx].utilizationRate = utilizeReq(reqSum, p.stage?.apCost || 18);
+          // arr[idx].mainItem = this.matrix[0].item;
         });
     });
   }
@@ -63,12 +68,15 @@ export default class MatrixService {
    * getEfficientPagesByItem
    */
   public getEfficientPagesByItem(item: IPenguinItem) {
-    return this.matrix
-      .filter((p) => p.mainItem === item)
-      .filter((p) => p.item === item)
-      .filter((p) => p.utilizationRate > 1.17)
-      .sort((p1, p2) => p2.utilizationRate - p1.utilizationRate)
-      .slice(0, 4);
+    return (
+      this.matrix
+        // .filter((p) => p.mainItem === item)
+        .filter((p) => p.item === item)
+        .filter((p) => p.expectation < 180)
+        .filter((p) => p.utilizationRate > 1.17)
+        .sort((p1, p2) => p2.utilizationRate - p1.utilizationRate)
+        .slice(0, 4)
+    );
   }
 
   /**

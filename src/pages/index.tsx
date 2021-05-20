@@ -1,11 +1,11 @@
 import styles from './index.less';
 import { Skeleton, Space, Divider } from 'antd';
 import { useModel } from 'umi';
-import { IAogEntry } from '@/models/useMatrix';
+import { IAogEntry } from '@/models/useAog';
 import ItemRow from '@/components/ItemRow';
 import ItemCell from '@/components/ItemCell';
 import StageCell from '@/components/StageCell';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 interface IHeaderData {
   currency: string;
@@ -13,23 +13,20 @@ interface IHeaderData {
 }
 
 export default function IndexPage({ currency, setLastModified }: IHeaderData) {
-  const { data, loading } = useModel('useMatrix');
+  const { data, loading } = useModel('useAog');
 
-  const { data: result, loading: loading1 } = useModel('useAog');
+  // useEffect(() => {
+  //   setLastModified(data?.lastModified);
+  // }, [data?.lastModified]);
+  // console.log(loading, data);
 
-  useEffect(() => {
-    setLastModified(data?.lastModified);
-  }, [data?.lastModified]);
-
-  if (loading || loading1) {
+  if (loading) {
     return <Skeleton active />;
   }
 
-  console.log(result);
-
   const itemGroups = new Map<number, IAogEntry[]>();
 
-  data.matrix.forEach((e) => {
+  data.forEach((e) => {
     if (e.group === 0) {
       return;
     }
@@ -48,7 +45,7 @@ export default function IndexPage({ currency, setLastModified }: IHeaderData) {
         .map((v) => (
           <ItemRow entires={v} currency={currency} key={v?.[0]?.group} />
         ))}
-      {data.matrix
+      {data
         .filter((e) => e.tier === 2)
         .map((v) => (
           <div className={styles.t2Display} key={v.group}>

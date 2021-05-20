@@ -1,12 +1,15 @@
 import { IPenguinItem } from '@/models/typeRefs';
 
 export default class ItemService {
-  readonly items: IPenguinItem[];
-  readonly itemGroups: Set<number>;
+  private readonly items: IPenguinItem[];
+  private readonly itemGroups: Set<number>;
+
+  readonly ready: boolean;
 
   constructor(itemList: IPenguinItem[]) {
     this.items = itemList || [];
     this.itemGroups = new Set<number>();
+    this.ready = itemList && itemList.length > 0;
 
     this.items.forEach((i) => {
       if (i && i.group > 0) {

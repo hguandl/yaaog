@@ -1,16 +1,41 @@
-import MatrixService from "@/services/MatrixService";
-import { useModel } from "umi";
+import { useModel } from 'umi';
 
-export default function useAog(): { data: any, loading: boolean } {
-  const { matrixService, loading } = useModel("useServices");
+export interface IAogMatrix {
+  matrix: IAogEntry[];
+  lastModified: number;
+}
 
-  if (loading) {
-    return { data: { matrix: [], lastModified: 0 }, loading: true };
+export interface IAogStage {
+  stage: string;
+  efficiency: number;
+  absEff: number;
+  expectation: number;
+  color: string;
+}
+
+export interface IAogEntry {
+  name: string;
+
+  group: number;
+  tier: number;
+
+  stages: IAogStage[];
+
+  greenRatio: number;
+  orangeRatio: number;
+  creditRatio: number;
+  actShopRatio: number;
+}
+
+export default function useAog(): { data: IAogEntry[]; loading: boolean } {
+  const { formService, loading } = useModel('useServices');
+
+  if (loading || !formService.ready) {
+    return { data: [], loading: true };
   }
 
-
   return {
-    data: matrixService.matrix,
+    data: formService.summary(),
     loading: false,
   };
 }
