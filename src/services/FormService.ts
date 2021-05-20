@@ -13,7 +13,7 @@ export default class FormService {
   private readonly matrixService: MatrixService;
   private readonly itemService: ItemService;
 
-  ready: boolean;
+  readonly ready: boolean;
 
   constructor(matrixService: MatrixService, itemService: ItemService) {
     this.itemStageEntries = new Map<IPenguinItem, IPenguinEntry[]>();
