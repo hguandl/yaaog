@@ -147,7 +147,8 @@ export default class FormService {
       }
 
       if (item.tier >= 3 && item.tier <= 4) {
-        aogData.orangeRatio = this.itemValues.get(item) || 0 / item.orangePrice;
+        aogData.orangeRatio =
+          (this.itemValues.get(item) || 0) / item.orangePrice;
       }
 
       // TODO: 设置信用商店性价比

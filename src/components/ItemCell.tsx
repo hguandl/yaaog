@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { Tooltip } from "antd";
-import { IAogEntry } from '@/models/useMatrix';
-import { magenta, orange, blue } from "@ant-design/colors";
+import { Tooltip } from 'antd';
+import { IAogEntry } from '@/models/useAog';
+import { magenta, orange, blue } from '@ant-design/colors';
 
-const mapColorStyle = ( ratio: number ): string | undefined => {
+const mapColorStyle = (ratio: number): string | undefined => {
   if (ratio >= 0.98) {
     return magenta.primary;
   }
@@ -14,27 +14,32 @@ const mapColorStyle = ( ratio: number ): string | undefined => {
     return blue.primary;
   }
   return undefined;
-}
+};
 
-const showDecimal = (num: number | undefined): string => (
-  (num && num > 0) ? num.toFixed(3) : "-"
-);
+const showDecimal = (num: number | undefined): string =>
+  num && num > 0 ? num.toFixed(3) : '-';
 
-const ItemCell: FC<{ item: IAogEntry | undefined, currency: string, className?: string }> = ({ item, currency, className }) => {
+const ItemCell: FC<{
+  item: IAogEntry | undefined;
+  currency: string;
+  className?: string;
+}> = ({ item, currency, className }) => {
   if (item === undefined) {
     return null;
   }
 
-  const cost = currency === "green" ? item.greenRatio : item.orangeRatio;
-  const ratio = currency === "green" ? item.greenRatio : item.orangeRatio / 1.5;
+  const cost = currency === 'green' ? item.greenRatio : item.orangeRatio;
+  const ratio = currency === 'green' ? item.greenRatio : item.orangeRatio / 1.5;
 
   return (
-    <div style={{ textAlign: "center" }} className={className}>
-      <Tooltip title={item?.name} placement="bottom"><img width={48} src={`/img/${item?.name}.png`} /></Tooltip>
+    <div style={{ textAlign: 'center' }} className={className}>
+      <Tooltip title={item?.name} placement="bottom">
+        <img width={48} src={`/img/${item?.name}.png`} />
+      </Tooltip>
       <br />
       <span style={{ color: mapColorStyle(ratio) }}>{showDecimal(cost)}</span>
     </div>
-  )
+  );
 };
 
 export default ItemCell;
