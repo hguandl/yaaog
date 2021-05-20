@@ -1,15 +1,15 @@
-import { IPenguin } from '@/models/typeRefs';
+import { IPenguinEntry, IPenguinItem } from '@/models/typeRefs';
 import ItemService from './ItemService';
 import StageService from './StageService';
 
 export default class MatrixService {
-  readonly matrix: IPenguin[];
+  readonly matrix: IPenguinEntry[];
 
   private readonly itemService: ItemService;
   private readonly stageService: StageService;
 
   constructor(
-    origMatrix: IPenguin[],
+    origMatrix: IPenguinEntry[],
     itemService: ItemService,
     stageService: StageService,
   ) {
@@ -36,7 +36,7 @@ export default class MatrixService {
       arr[idx].probability = p.quantity / p.times;
       arr[idx].expectation = (p.stage?.apCost || 0) / p.probability;
       arr[idx].request = (p.item?.price || 0) * p.probability;
-    })
+    });
 
     const validStages = new Set();
     this.matrix.forEach((p) => validStages.add(p.stage));
@@ -57,5 +57,28 @@ export default class MatrixService {
           arr[idx].utilizationRate = utilizeReq(reqSum, p.stage?.apCost || 18);
         });
     });
+  }
+
+  /**
+   * getEfficientPagesByItem
+   */
+  public getEfficientPagesByItem(item: IPenguinItem) {
+    return this.matrix
+      .filter((p) => p.mainItem === item)
+      .filter((p) => p.item === item)
+      .filter((p) => p.utilizationRate > 1.17)
+      .sort((p1, p2) => p2.utilizationRate - p1.utilizationRate)
+      .slice(0, 4);
+  }
+
+  /**
+   * getEconomicPagesByItem
+   */
+  public getEconomicPagesByItem(item: IPenguinItem) {
+    return this.matrix
+      .filter((p) => p.item === item)
+      .filter((p) => p.expectation < 180)
+      .sort((p1, p2) => p2.utilizationRate - p1.utilizationRate)
+      .slice(0, 4);
   }
 }
