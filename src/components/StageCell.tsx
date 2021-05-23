@@ -20,7 +20,7 @@ const mapColorStyle = (colorName: string): string | undefined => {
 const StageName: FC<{ stage: IAogStage }> = ({ stage }) => (
   <div
     style={{
-      fontSize: '2.5em',
+      fontSize: '2.5rem',
       fontWeight: 'bold',
       color: mapColorStyle(stage.color),
     }}

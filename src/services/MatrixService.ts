@@ -25,7 +25,7 @@ export default class MatrixService {
     }
 
     this.matrix = origMatrix
-      .filter((p) => p.times > 300)
+      .filter((p) => p.times > 500)
       .filter((p) => itemService.hasItemId(p.itemId))
       .filter((p) => stageService.hasStageId(p.stageId));
 
