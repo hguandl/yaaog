@@ -17,6 +17,15 @@ const mapColorStyle = (colorName: string): string | undefined => {
   }
 };
 
+const stageNameContent = (stage: string) =>
+  stage.endsWith('*') ? (
+    <Tooltip title="常驻关卡(插曲/别传)" placement="top">
+      {stage}
+    </Tooltip>
+  ) : (
+    stage
+  );
+
 const StageName: FC<{ stage: IAogStage }> = ({ stage }) => (
   <div
     style={{
@@ -25,7 +34,7 @@ const StageName: FC<{ stage: IAogStage }> = ({ stage }) => (
       color: mapColorStyle(stage.color),
     }}
   >
-    {stage.stage}
+    {stageNameContent(stage.stage)}
   </div>
 );
 
