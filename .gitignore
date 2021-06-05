@@ -21,3 +21,7 @@
 
 # Cloudflare Workers
 wrangler.toml
+/workers-site
+
+# Generated Data
+/public/dat

@@ -172,7 +172,7 @@ for key, stage in retro["stageList"].items():
     if stage["canBattleReplay"]:
         stage_output.append({
             "stageId": stage["stageId"] + "_perm",
-            "code": stage["code"] + "*",
+            "code": stage["code"],
             "name": stage["name"],
             "apCost": stage["apCost"]
         })

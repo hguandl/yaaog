@@ -3,7 +3,8 @@
   "scripts": {
     "start": "umi dev",
     "build": "umi build",
-    "postinstall": "umi generate tmp",
+    "deploy": "wrangler publish",
+    "postinstall": "umi generate tmp; python3 ak_tables.py",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage"
