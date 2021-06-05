@@ -1,9 +1,11 @@
 .viewPort {
   @media screen and (max-width: 900px) {
-    width: calc(100vw - 260px)
+    width: calc(100vw - 260px);
   }
   width: auto;
   overflow-x: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
 }
 
 .viewPort::-webkit-scrollbar {
@@ -22,6 +24,8 @@
   }
   width: auto;
   overflow-x: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .t2ScollView::-webkit-scrollbar {

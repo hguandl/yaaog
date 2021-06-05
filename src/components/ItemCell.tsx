@@ -3,7 +3,7 @@ import { Tooltip } from 'antd';
 import { IAogEntry } from '@/models/useAog';
 import { magenta, orange, blue } from '@ant-design/colors';
 
-const mapColorStyle = (ratio: number): string | undefined => {
+const mapColorStyle = (ratio: number) => {
   if (ratio >= 0.98) {
     return magenta.primary;
   }
@@ -16,11 +16,11 @@ const mapColorStyle = (ratio: number): string | undefined => {
   return undefined;
 };
 
-const showDecimal = (num: number | undefined): string =>
+const showDecimal = (num?: number): string =>
   num && num > 0 ? num.toFixed(3) : '-';
 
 const ItemCell: FC<{
-  item: IAogEntry | undefined;
+  item?: IAogEntry;
   currency: string;
   className?: string;
 }> = ({ item, currency, className }) => {
